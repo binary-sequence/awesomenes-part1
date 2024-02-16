@@ -1,16 +1,17 @@
 NAME = awesomenes-part1
 AS = ca65 --verbose
 LD = ld65 -v -C $(NES_CFG)
-OBJECTS = build/obj/$(NAME).o
-DEBUG_OBJECTS = build/debug/$(NAME).o
+OBJECTS = build/obj/irq_handler.o build/obj/main.o build/obj/nmi_handler.o build/obj/reset_handler.o
+DEBUG_OBJECTS = build/debug/irq_handler.o build/debug/main.o build/debug/nmi_handler.o build/debug/reset_handler.o
 RESOURCES = res/background.pal res/pattern_tables.chr
-NES_CFG = ../nes.cfg
+NES_CFG = ./nes.cfg
 ROM_NAME = $(NAME).nes
 DBG_NAME = $(NAME).dbg
 
 
 ########################################################################
 #                         RELEASE BUILD
+
 .PHONY: release
 release: build/dist/$(ROM_NAME)
 
@@ -38,6 +39,7 @@ everdrive: build/dist/$(ROM_NAME)
 
 ########################################################################
 #                          DEBUG BUILD
+
 .PHONY: debug
 debug: build/debug/$(ROM_NAME) build/debug/$(DBG_NAME)
 	mesen build/debug/$(ROM_NAME)
