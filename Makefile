@@ -3,6 +3,7 @@ AS = ca65 --verbose
 LD = ld65 -v -C $(NES_CFG)
 OBJECTS = build/obj/$(NAME).o
 DEBUG_OBJECTS = build/debug/$(NAME).o
+RESOURCES = res/background.pal res/pattern_tables.chr
 NES_CFG = ../nes.cfg
 ROM_NAME = $(NAME).nes
 DBG_NAME = $(NAME).dbg
@@ -19,7 +20,7 @@ build/dist/$(ROM_NAME): $(OBJECTS) $(NES_CFG) build/dist
 build/dist:
 	mkdir -p build/dist
 
-$(OBJECTS): build/obj/%.o: src/%.asm res/pattern_tables.chr build/obj
+$(OBJECTS): build/obj/%.o: src/%.asm $(RESOURCES) build/obj
 	$(AS) -o $@ $<
 
 build/obj:
@@ -47,7 +48,7 @@ build/debug/$(ROM_NAME): $(DEBUG_OBJECTS) $(NES_CFG) build/debug
 build/debug:
 	mkdir -p build/debug
 
-$(DEBUG_OBJECTS): build/debug/%.o: src/%.asm res/pattern_tables.chr build/debug
+$(DEBUG_OBJECTS): build/debug/%.o: src/%.asm $(RESOURCES) build/debug
 	$(AS) -g -o $@ $<
 ########################################################################
 
