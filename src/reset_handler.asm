@@ -1,4 +1,4 @@
-.include "nes_constants.inc"
+.include "constants.inc"
 
 .segment "CODE"
 .import clear_nametables

@@ -1,4 +1,4 @@
-.include "nes_constants.inc"
+.include "constants.inc"
 
 .segment "ZEROPAGE"
 .importzp p1_buttons
