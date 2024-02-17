@@ -2,10 +2,16 @@
 .include "header.inc"
 
 .segment "ZEROPAGE"
+  day_state: .res 1  ; 0: sunrise, 1: sunset
+  day_time: .res 1  ; 0: darkest, 1: dark, 2: bright, 3: brightest
+  frame_counter: .res 1
   p1_buttons: .res 1
   p1_buttons_last_pressed: .res 1
   ppu_ctrl: .res 1
   ppu_mask: .res 1
+  .exportzp day_state
+  .exportzp day_time
+  .exportzp frame_counter
   .exportzp p1_buttons
   .exportzp p1_buttons_last_pressed
   .exportzp ppu_ctrl
@@ -46,20 +52,10 @@
         BNE loop
     .endscope
 
-    ; Palettes
-    LDA #$3F
-    STA PPUADDR
-    LDA #$00
-    STA PPUADDR
-    LDX #0
-    .scope
-      loop:
-        LDA palettes1,X
-        STA PPUDATA
-        INX
-        CPX #16
-        BNE loop
-    .endscope
+    LDA #0
+    STA day_state
+    STA day_time
+    STA frame_counter
 
     ;     BGRsbMmG
     LDA #%00011110
@@ -80,14 +76,18 @@
   palettes_blank:
     .byte $0F,$0F,$0F,$0F, $0F,$0F,$0F,$0F
   palettes_darkest:
-    .byte $0C,$0F,$07,$01, $0F,$0F,$00,$01
+    .byte $0C,$0F,$07,$01, $0C,$0F,$00,$01
   palettes_dark:
-    .byte $1C,$0F,$06,$11, $0F,$0F,$10,$11
+    .byte $1C,$0F,$06,$11, $1C,$0F,$10,$11
   palettes_bright:
-    .byte $2C,$0F,$16,$21, $0F,$0F,$20,$21
+    .byte $2C,$0F,$16,$21, $2C,$0F,$20,$21
   palettes_brightest:
-    .byte $3C,$0F,$17,$31, $0F,$0F,$30,$31
+    .byte $3C,$0F,$17,$31, $3C,$0F,$30,$31
   palette1: .incbin "res/palette1.pal"
+.export palettes_darkest
+.export palettes_dark
+.export palettes_bright
+.export palettes_brightest
 
 .segment "VECTORS"
 .addr nmi_handler, reset_handler, irq_handler

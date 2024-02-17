@@ -1,10 +1,17 @@
 .include "constants.inc"
 
 .segment "ZEROPAGE"
+  .importzp day_state
+  .importzp day_time
+  .importzp frame_counter
   .importzp ppu_ctrl
   .importzp ppu_mask
 
 .segment "CODE"
+  .import palettes_darkest
+  .import palettes_dark
+  .import palettes_bright
+  .import palettes_brightest
 
   .export nmi_handler
   .proc nmi_handler
@@ -19,6 +26,93 @@
     LDX #.HIBYTE(OAM_BUFFER)
     STX OAMDMA
 
+    ; Palettes
+    LDA #$3F
+    STA PPUADDR
+    LDA #$00
+    STA PPUADDR
+
+    LDX #0
+    CPX day_time
+    BNE skip_darkest
+    .scope
+      loop:
+        LDA palettes_darkest,X
+        STA PPUDATA
+        INX
+        CPX #8
+        BNE loop
+    .endscope
+    skip_darkest:
+
+    LDX #1
+    CPX day_time
+    BNE skip_dark
+    LDX #0
+    .scope
+      loop:
+        LDA palettes_dark,X
+        STA PPUDATA
+        INX
+        CPX #8
+        BNE loop
+    .endscope
+    skip_dark:
+
+    LDX #2
+    CPX day_time
+    BNE skip_bright
+    LDX #0
+    .scope
+      loop:
+        LDA palettes_bright,X
+        STA PPUDATA
+        INX
+        CPX #8
+        BNE loop
+    .endscope
+    skip_bright:
+
+    LDX #3
+    CPX day_time
+    BNE skip_brightest
+    LDX #0
+    .scope
+      loop:
+        LDA palettes_brightest,X
+        STA PPUDATA
+        INX
+        CPX #8
+        BNE loop
+    .endscope
+    skip_brightest:
+
+    INC frame_counter
+    LDA frame_counter
+    CMP #49 ; PAL: 49, NTSC: 59
+    BNE intra_sec
+    LDA #0
+    STA frame_counter
+
+    LDY day_state
+    CPY #0
+    BEQ continue_sunrise
+    DEC day_time
+    BNE skip_sunrise
+    DEC day_state
+    JMP skip_sunrise
+    continue_sunrise:
+      INC day_time
+      LDX day_time
+      CPX #4
+      BNE skip_sunset
+      INC day_state
+      DEC day_time
+      DEC day_time
+    skip_sunset:
+    skip_sunrise:
+    intra_sec:
+
     LDA ppu_ctrl
     STA PPUCTRL
     LDA #0
@@ -27,7 +121,6 @@
 
     LDA ppu_mask
     STA PPUMASK
-
 
     PLA
     TAY
