@@ -72,25 +72,8 @@
       JMP forever
   .endproc
 
-.segment "RODATA"
-  palettes_blank:
-    .byte $0F,$0F,$0F,$0F, $0F,$0F,$0F,$0F
-  palettes_darkest:
-    .byte $0C,$0F,$07,$01, $0C,$0F,$00,$01
-  palettes_dark:
-    .byte $1C,$0F,$06,$11, $1C,$0F,$10,$11
-  palettes_bright:
-    .byte $2C,$0F,$16,$21, $2C,$0F,$20,$21
-  palettes_brightest:
-    .byte $3C,$0F,$17,$31, $3C,$0F,$30,$31
-  palette1: .incbin "res/palette1.pal"
-.export palettes_darkest
-.export palettes_dark
-.export palettes_bright
-.export palettes_brightest
-
 .segment "VECTORS"
-.addr nmi_handler, reset_handler, irq_handler
+  .addr nmi_handler, reset_handler, irq_handler
 
 .segment "CHR"
-.incbin "../res/pattern_tables.chr"
+  .incbin "../res/pattern_tables.chr"

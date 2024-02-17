@@ -8,10 +8,6 @@
   .importzp ppu_mask
 
 .segment "CODE"
-  .import palettes_darkest
-  .import palettes_dark
-  .import palettes_bright
-  .import palettes_brightest
 
   .export nmi_handler
   .proc nmi_handler
@@ -129,3 +125,15 @@
     PLA
     RTI
   .endproc
+
+.segment "RODATA"
+  palettes_blank:
+    .byte $0F,$0F,$0F,$0F, $0F,$0F,$0F,$0F
+  palettes_darkest:
+    .byte $0C,$0F,$07,$01, $0C,$0F,$00,$01
+  palettes_dark:
+    .byte $1C,$0F,$06,$11, $1C,$0F,$10,$11
+  palettes_bright:
+    .byte $2C,$0F,$16,$21, $2C,$0F,$20,$21
+  palettes_brightest:
+    .byte $3C,$0F,$17,$31, $3C,$0F,$30,$31
