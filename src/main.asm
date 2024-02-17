@@ -18,429 +18,20 @@
   .res 256
 
 .segment "CODE"
+  .import draw_dock
+  .import draw_mountains
+  .import draw_sky
   .import irq_handler
   .import nmi_handler
   .import reset_handler
 
   .export main
   .proc main
-    ; Sky
-    LDA #$20
-    STA PPUADDR
-    LDA #00
-    STA PPUADDR
-    LDY #$02
-    LDX #(32 * 7)
-    .scope
-      draw_sky:
-        STY PPUDATA
-        DEX
-        BNE draw_sky
-    .endscope
+    JSR draw_sky
+    JSR draw_mountains
+    JSR draw_dock
 
-    ; Mountains
-    ; $200F
-    LDA #$20
-    STA PPUADDR
-    LDA #$0F
-    STA PPUADDR
-    LDX #$07
-    STX PPUDATA
-    ; $202E
-    LDA #$20
-    STA PPUADDR
-    LDA #$2E
-    STA PPUADDR
-    LDY #$05
-    STY PPUDATA
-    LDY #$01
-    STY PPUDATA
-    LDY #$06
-    STY PPUDATA
-    ; $2037
-    LDA #$20
-    STA PPUADDR
-    LDA #$37
-    STA PPUADDR
-    LDY #$05
-    STY PPUDATA
-    INY
-    STY PPUDATA
-    ; $2044
-    LDA #$20
-    STA PPUADDR
-    LDA #$44
-    STA PPUADDR
-    LDY #$07
-    STY PPUDATA
-    ; $204D
-    LDA #$20
-    STA PPUADDR
-    LDA #$4D
-    STA PPUADDR
-    LDY #$03
-    STY PPUDATA
-    LDX #$20
-    STX PPUDATA
-    STX PPUDATA
-    STX PPUDATA
-    INY
-    STY PPUDATA
-    ; $2056
-    LDA #$20
-    STA PPUADDR
-    LDA #$56
-    STA PPUADDR
-    LDY #$05
-    STY PPUDATA
-    LDX #$01
-    STX PPUDATA
-    STX PPUDATA
-    INY
-    STY PPUDATA
-    ; $2063
-    LDA #$20
-    STA PPUADDR
-    LDA #$63
-    STA PPUADDR
-    LDY #$05
-    STY PPUDATA
-    LDX #$01
-    STX PPUDATA
-    INY
-    STY PPUDATA
-    ; $206C
-    LDA #$20
-    STA PPUADDR
-    LDA #$6C
-    STA PPUADDR
-    LDY #$03
-    STY PPUDATA
-    LDX #$20
-    STX PPUDATA
-    STX PPUDATA
-    STX PPUDATA
-    STX PPUDATA
-    STX PPUDATA
-    INY
-    STY PPUDATA
-    ; $2075
-    LDA #$20
-    STA PPUADDR
-    LDA #$75
-    STA PPUADDR
-    LDY #$03
-    STY PPUDATA
-    LDX #$20
-    STX PPUDATA
-    STX PPUDATA
-    STX PPUDATA
-    STX PPUDATA
-    INY
-    STY PPUDATA
-    ; $2082
-    LDA #$20
-    STA PPUADDR
-    LDA #$82
-    STA PPUADDR
-    LDY #$03
-    STY PPUDATA
-    LDX #$20
-    STX PPUDATA
-    STX PPUDATA
-    STX PPUDATA
-    INY
-    STY PPUDATA
-    ; $208B
-    LDA #$20
-    STA PPUADDR
-    LDA #$8B
-    STA PPUADDR
-    LDY #$03
-    STY PPUDATA
-    LDY #$20
-    LDX #7
-    .scope
-      draw_mountains:
-        STY PPUDATA
-        DEX
-        BNE draw_mountains
-    .endscope
-    LDY #$04
-    STY PPUDATA
-    DEY
-    STY PPUDATA
-    LDY #$20
-    LDX #6
-    .scope
-      draw_mountains:
-        STY PPUDATA
-        DEX
-        BNE draw_mountains
-    .endscope
-    LDY # $04
-    STY PPUDATA
-    ; $20A1
-    LDA #$20
-    STA PPUADDR
-    LDA #$A1
-    STA PPUADDR
-    LDY #$03
-    STY PPUDATA
-    LDY #$20
-    LDX #5
-    .scope
-      draw_mountains:
-        STY PPUDATA
-        DEX
-        BNE draw_mountains
-    .endscope
-    LDY #$04
-    STY PPUDATA
-    ; $20AA
-    LDA #$20
-    STA PPUADDR
-    LDA #$AA
-    STA PPUADDR
-    LDY #$03
-    STY PPUDATA
-    LDY #$20
-    LDX #17
-    .scope
-      draw_mountains:
-        STY PPUDATA
-        DEX
-        BNE draw_mountains
-    .endscope
-    LDY #$04
-    STY PPUDATA
-    ; $20BF
-    LDA #$20
-    STA PPUADDR
-    LDA #$BF
-    STA PPUADDR
-    LDY #$03
-    STY PPUDATA
-
-    ; $20C0
-    LDA #$20
-    STA PPUADDR
-    LDA #$C0
-    STA PPUADDR
-    LDY #$03
-    STY PPUDATA
-    LDY #$20
-    LDX #7
-    .scope
-      draw_mountains:
-        STY PPUDATA
-        DEX
-        BNE draw_mountains
-    .endscope
-    LDY #$04
-    STY PPUDATA
-    DEY
-    STY PPUDATA
-    LDY #$20
-    LDX #19
-    .scope
-      draw_mountains:
-        STY PPUDATA
-        DEX
-        BNE draw_mountains
-    .endscope
-    LDY #$04
-    STY PPUDATA
-    DEY
-    STY PPUDATA
-    LDY #$20
-    STY PPUDATA
-    LDA #$20
-    STA PPUADDR
-    LDA #$E0
-    STA PPUADDR
-    LDA #$20
-    LDX #96
-    write_line:
-      STA PPUDATA
-      DEX
-      BNE write_line
-    LDY #$20
-    LDX #8
-    .scope
-      draw_coast:
-        STY PPUDATA
-        INY
-        DEX
-        BNE draw_coast
-    .endscope
-    DEY
-    DEY
-    STY PPUDATA
-    DEY
-    STY PPUDATA
-    STY PPUDATA
-    INY
-    STY PPUDATA
-    STY PPUDATA
-    INY
-    STY PPUDATA
-    STY PPUDATA
-    LDA #$21
-    STA PPUADDR
-    LDA #$2F
-    STA PPUADDR
-    LDY #$20
-    LDX #5
-    .scope
-      draw_coast:
-        STY PPUDATA
-        INY
-        DEX
-        BNE draw_coast
-    .endscope
-    DEY
-    LDX #5
-    .scope
-      draw_coast:
-        STY PPUDATA
-        DEY
-        DEX
-        BNE draw_coast
-    .endscope
-    LDA #$21
-    STA PPUADDR
-    LDA #$58
-    STA PPUADDR
-    LDY #$27
-    STY PPUDATA
-    STY PPUDATA
-    DEY
-    STY PPUDATA
-    STY PPUDATA
-    DEY
-    STY PPUDATA
-    DEY
-    STY PPUDATA
-    STY PPUDATA
-    STY PPUDATA
-
-    ; Dock
-    ;     VPHBSINN
-    LDA #%00000100
-    STA PPUCTRL
-    LDA #$22
-    STA PPUADDR
-    LDA #$CC
-    STA PPUADDR
-    LDY #$17
-    LDX #8
-    .scope
-      draw_dock:
-        STY PPUDATA
-        DEY
-        DEX
-        BNE draw_dock
-    .endscope
-    LDA #$21
-    STA PPUADDR
-    LDA #$CD
-    STA PPUADDR
-    LDY #$17
-    LDX #8
-    .scope
-      draw_dock:
-        STY PPUDATA
-        DEY
-        DEX
-        BNE draw_dock
-    .endscope
-    LDY #$1
-    LDX #8
-    .scope
-      draw_dock:
-        STY PPUDATA
-        DEX
-        BNE draw_dock
-    .endscope
-    LDA #$21
-    STA PPUADDR
-    LDA #$AE
-    STA PPUADDR
-    LDA #$2F
-    STA PPUDATA
-    LDX #16
-    .scope
-      draw_dock:
-        STY PPUDATA
-        DEX
-        BNE draw_dock
-    .endscope
-    LDA #$21
-    STA PPUADDR
-    LDA #$AF
-    STA PPUADDR
-    LDA #$2F
-    STA PPUDATA
-    LDX #16
-    .scope
-      draw_dock:
-        STY PPUDATA
-        DEX
-        BNE draw_dock
-    .endscope
-    LDA #$21
-    STA PPUADDR
-    LDA #$B0
-    STA PPUADDR
-    LDA #$2F
-    STA PPUDATA
-    LDX #16
-    .scope
-      draw_dock:
-        STY PPUDATA
-        DEX
-        BNE draw_dock
-    .endscope
-    LDA #$21
-    STA PPUADDR
-    LDA #$D1
-    STA PPUADDR
-    LDY #$1F
-    LDX #8
-    .scope
-      draw_dock:
-        STY PPUDATA
-        DEY
-        DEX
-        BNE draw_dock
-    .endscope
-    LDY #$1
-    LDX #8
-    .scope
-      draw_dock:
-        STY PPUDATA
-        DEX
-        BNE draw_dock
-    .endscope
-    LDA #$22
-    STA PPUADDR
-    LDA #$D2
-    STA PPUADDR
-    LDY #$1F
-    LDX #8
-    .scope
-      draw_dock:
-        STY PPUDATA
-        DEY
-        DEX
-        BNE draw_dock
-    .endscope
-    ;     VPHBSINN
-    LDA #%00000000
-    STA PPUCTRL
-
-    ; Attribute table
+    ; Attribute tables
     LDA #$23
     STA PPUADDR
     LDA #$C0
@@ -448,23 +39,27 @@
     ;     BrBlTrTl
     LDA #%01010101
     LDX #(8 * 2)
-    set_palette:
-      STA PPUDATA
-      DEX
-      BNE set_palette
+    .scope
+      loop:
+        STA PPUDATA
+        DEX
+        BNE loop
+    .endscope
 
-    ; Palette 1
+    ; Palettes
     LDA #$3F
     STA PPUADDR
     LDA #$00
     STA PPUADDR
     LDX #0
-    write_palette1:
-      LDA palette1,X
-      STA PPUDATA
-      INX
-      CPX #16
-      BNE write_palette1
+    .scope
+      loop:
+        LDA palettes1,X
+        STA PPUDATA
+        INX
+        CPX #16
+        BNE loop
+    .endscope
 
     ;     BGRsbMmG
     LDA #%00011110
@@ -482,6 +77,16 @@
   .endproc
 
 .segment "RODATA"
+  palettes_blank:
+    .byte $0F,$0F,$0F,$0F, $0F,$0F,$0F,$0F
+  palettes_darkest:
+    .byte $0C,$0F,$07,$01, $0F,$0F,$00,$01
+  palettes_dark:
+    .byte $1C,$0F,$06,$11, $0F,$0F,$10,$11
+  palettes_bright:
+    .byte $2C,$0F,$16,$21, $0F,$0F,$20,$21
+  palettes_brightest:
+    .byte $3C,$0F,$17,$31, $0F,$0F,$30,$31
   palette1: .incbin "res/palette1.pal"
 
 .segment "VECTORS"

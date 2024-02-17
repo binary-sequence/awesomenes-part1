@@ -1,8 +1,8 @@
 NAME = awesomenes-part1
 AS = ca65 --verbose
 LD = ld65 -v -C $(NES_CFG)
-OBJECTS = build/obj/irq_handler.o build/obj/main.o build/obj/nmi_handler.o build/obj/reset_handler.o build/obj/utils.o
-DEBUG_OBJECTS = build/debug/irq_handler.o build/debug/main.o build/debug/nmi_handler.o build/debug/reset_handler.o build/debug/utils.o
+OBJECTS = build/obj/demo.o build/obj/irq_handler.o build/obj/main.o build/obj/nmi_handler.o build/obj/reset_handler.o build/obj/utils.o
+DEBUG_OBJECTS = build/debug/demo.o build/debug/irq_handler.o build/debug/main.o build/debug/nmi_handler.o build/debug/reset_handler.o build/debug/utils.o
 RESOURCES = res/palette1.pal res/pattern_tables.chr
 NES_CFG = ./nes.cfg
 ROM_NAME = $(NAME).nes
