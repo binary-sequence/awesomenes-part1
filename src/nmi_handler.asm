@@ -258,9 +258,9 @@
     .asciiz "WITH POWER.                     "
     .asciiz "AWE! SOME NES - PART 1 - BINARY-"
     .asciiz "SEQUENCE (CODE, GRAPHICS).      "
-  ; .asciiz "MOOVIE (MUSIC)                  "
-    .asciiz "WAIT FOR PART 2,   NEXT YEAR…   "
-    .asciiz "THANK YOU, MOUNTAIN BYTES 2024! "
+    .asciiz "MOOVIE (MUSIC)                  "
+    .asciiz "WAIT FOR PART 2,   NEXT YEAR... "
+    .asciiz "  THANK YOU, MOUNTAINBYTES 2024!"
   text2:
     .asciiz "                                "
     .asciiz "                                "
