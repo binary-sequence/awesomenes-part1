@@ -11,7 +11,7 @@
     STA PPUADDR
     LDA #$CC
     STA PPUADDR
-    LDY #$17
+    LDY #$E7
     LDX #8
     .scope
       draw:
@@ -24,7 +24,7 @@
     STA PPUADDR
     LDA #$CD
     STA PPUADDR
-    LDY #$17
+    LDY #$E7
     LDX #8
     .scope
       draw:
@@ -45,7 +45,7 @@
     STA PPUADDR
     LDA #$AE
     STA PPUADDR
-    LDA #$2F
+    LDA #$FF
     STA PPUDATA
     LDX #16
     .scope
@@ -58,7 +58,7 @@
     STA PPUADDR
     LDA #$AF
     STA PPUADDR
-    LDA #$2F
+    LDA #$FF
     STA PPUDATA
     LDX #16
     .scope
@@ -71,7 +71,7 @@
     STA PPUADDR
     LDA #$B0
     STA PPUADDR
-    LDA #$2F
+    LDA #$FF
     STA PPUDATA
     LDX #16
     .scope
@@ -84,7 +84,7 @@
     STA PPUADDR
     LDA #$D1
     STA PPUADDR
-    LDY #$1F
+    LDY #$EF
     LDX #8
     .scope
       draw:
@@ -105,7 +105,7 @@
     STA PPUADDR
     LDA #$D2
     STA PPUADDR
-    LDY #$1F
+    LDY #$EF
     LDX #8
     .scope
       draw:
@@ -164,7 +164,7 @@
       STA PPUADDR
       LDY #$03
       STY PPUDATA
-      LDX #$20
+      LDX #$F0
       STX PPUDATA
       STX PPUDATA
       STX PPUDATA
@@ -200,7 +200,7 @@
       STA PPUADDR
       LDY #$03
       STY PPUDATA
-      LDX #$20
+      LDX #$F0
       STX PPUDATA
       STX PPUDATA
       STX PPUDATA
@@ -215,7 +215,7 @@
       STA PPUADDR
       LDY #$03
       STY PPUDATA
-      LDX #$20
+      LDX #$F0
       STX PPUDATA
       STX PPUDATA
       STX PPUDATA
@@ -229,7 +229,7 @@
       STA PPUADDR
       LDY #$03
       STY PPUDATA
-      LDX #$20
+      LDX #$F0
       STX PPUDATA
       STX PPUDATA
       STX PPUDATA
@@ -242,7 +242,7 @@
       STA PPUADDR
       LDY #$03
       STY PPUDATA
-      LDY #$20
+      LDY #$F0
       LDX #7
       .scope
         draw:
@@ -254,7 +254,7 @@
       STY PPUDATA
       DEY
       STY PPUDATA
-      LDY #$20
+      LDY #$F0
       LDX #6
       .scope
         draw:
@@ -271,7 +271,7 @@
       STA PPUADDR
       LDY #$03
       STY PPUDATA
-      LDY #$20
+      LDY #$F0
       LDX #5
       .scope
         draw:
@@ -288,7 +288,7 @@
       STA PPUADDR
       LDY #$03
       STY PPUDATA
-      LDY #$20
+      LDY #$F0
       LDX #17
       .scope
         draw:
@@ -312,7 +312,7 @@
       STA PPUADDR
       LDY #$03
       STY PPUDATA
-      LDY #$20
+      LDY #$F0
       LDX #7
       .scope
         draw:
@@ -324,7 +324,7 @@
       STY PPUDATA
       DEY
       STY PPUDATA
-      LDY #$20
+      LDY #$F0
       LDX #19
       .scope
         draw:
@@ -336,19 +336,19 @@
       STY PPUDATA
       DEY
       STY PPUDATA
-      LDY #$20
+      LDY #$F0
       STY PPUDATA
       LDA #$20
       STA PPUADDR
       LDA #$E0
       STA PPUADDR
-      LDA #$20
+      LDA #$F0
       LDX #96
       write_line:
         STA PPUDATA
         DEX
         BNE write_line
-      LDY #$20
+      LDY #$F0
       LDX #8
       .scope
         draw_coast:
@@ -373,7 +373,7 @@
       STA PPUADDR
       LDA #$2F
       STA PPUADDR
-      LDY #$20
+      LDY #$F0
       LDX #5
       .scope
         draw_coast:
@@ -395,7 +395,7 @@
       STA PPUADDR
       LDA #$58
       STA PPUADDR
-      LDY #$27
+      LDY #$F7
       STY PPUDATA
       STY PPUDATA
       DEY
