@@ -7,6 +7,7 @@
   .importzp ppu_ctrl
   .importzp ppu_mask
   .importzp scroll_x
+  .importzp wait_for_next_day_time
 
 .segment "CODE"
 
@@ -98,6 +99,12 @@
     LDA #0
     STA frame_counter
 
+    DEC wait_for_next_day_time
+    BEQ next_day_time
+    JMP skip_day_time
+    next_day_time:
+    LDA #8
+    STA wait_for_next_day_time
     LDY day_state
     CPY #0
     BEQ continue_sunrise
@@ -115,6 +122,8 @@
       DEC day_time
     skip_sunset:
     skip_sunrise:
+    skip_day_time:
+
     intra_sec:
 
     LDA ppu_ctrl

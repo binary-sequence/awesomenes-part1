@@ -10,6 +10,7 @@
   ppu_ctrl: .res 1
   ppu_mask: .res 1
   scroll_x: .res 1
+  wait_for_next_day_time: .res 1
   .exportzp day_state
   .exportzp day_time
   .exportzp frame_counter
@@ -18,6 +19,7 @@
   .exportzp ppu_ctrl
   .exportzp ppu_mask
   .exportzp scroll_x
+  .exportzp wait_for_next_day_time
 
 .segment "OAMBUFFER"
   .res 256
@@ -74,6 +76,8 @@
     STA day_time
     STA frame_counter
     STA scroll_x
+    LDA #8
+    STA wait_for_next_day_time
 
     ;     BGRsbMmG
     LDA #%00011110
