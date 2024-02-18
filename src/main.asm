@@ -9,6 +9,7 @@
   p1_buttons_last_pressed: .res 1
   ppu_ctrl: .res 1
   ppu_mask: .res 1
+  scroll_x: .res 1
   .exportzp day_state
   .exportzp day_time
   .exportzp frame_counter
@@ -16,6 +17,7 @@
   .exportzp p1_buttons_last_pressed
   .exportzp ppu_ctrl
   .exportzp ppu_mask
+  .exportzp scroll_x
 
 .segment "OAMBUFFER"
   .res 256
@@ -71,6 +73,7 @@
     STA day_state
     STA day_time
     STA frame_counter
+    STA scroll_x
 
     ;     BGRsbMmG
     LDA #%00011110

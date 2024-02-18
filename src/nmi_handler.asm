@@ -6,6 +6,7 @@
   .importzp frame_counter
   .importzp ppu_ctrl
   .importzp ppu_mask
+  .importzp scroll_x
 
 .segment "CODE"
 
@@ -83,6 +84,13 @@
     .endscope
     skip_brightest:
 
+    INC scroll_x
+    BNE same_nametable
+    ;     VPHBSINN
+    LDA #%00000001
+    EOR ppu_ctrl
+    STA ppu_ctrl
+    same_nametable:
     INC frame_counter
     LDA frame_counter
     CMP #49 ; PAL: 49, NTSC: 59
@@ -111,8 +119,9 @@
 
     LDA ppu_ctrl
     STA PPUCTRL
-    LDA #0
+    LDA scroll_x
     STA PPUSCROLL
+    LDA #0
     STA PPUSCROLL
 
     LDA ppu_mask
