@@ -5,20 +5,28 @@
   day_state: .res 1  ; 0: sunrise, 1: sunset
   day_time: .res 1  ; 0: darkest, 1: dark, 2: bright, 3: brightest
   frame_counter: .res 1
+  index: .res 1
   p1_buttons: .res 1
   p1_buttons_last_pressed: .res 1
   ppu_ctrl: .res 1
   ppu_mask: .res 1
   scroll_x: .res 1
+  state: .res 1
+  vram_hibyte: .res 1
+  vram_lobyte: .res 1
   wait_for_next_day_time: .res 1
   .exportzp day_state
   .exportzp day_time
   .exportzp frame_counter
+  .exportzp index
   .exportzp p1_buttons
   .exportzp p1_buttons_last_pressed
   .exportzp ppu_ctrl
   .exportzp ppu_mask
   .exportzp scroll_x
+  .exportzp state
+  .exportzp vram_hibyte
+  .exportzp vram_lobyte
   .exportzp wait_for_next_day_time
 
 .segment "OAMBUFFER"
@@ -70,14 +78,27 @@
         BNE loop
     .endscope
 
+    ; Palette
+    LDA #$3F
+    STA PPUADDR
+    LDA #$11
+    STA PPUADDR
+    LDA #$30
+    STA PPUDATA
 
     LDA #0
     STA day_state
     STA day_time
     STA frame_counter
+    STA index
     STA scroll_x
+    STA state
     LDA #8
     STA wait_for_next_day_time
+    LDA #$21
+    STA vram_hibyte
+    LDA #$80
+    STA vram_lobyte
 
     ;     BGRsbMmG
     LDA #%00011110
