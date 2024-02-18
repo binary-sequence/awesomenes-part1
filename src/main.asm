@@ -52,6 +52,21 @@
         BNE loop
     .endscope
 
+    LDA #$27
+    STA PPUADDR
+    LDA #$C0
+    STA PPUADDR
+    ;     BrBlTrTl
+    LDA #%01010101
+    LDX #(8 * 2)
+    .scope
+      loop:
+        STA PPUDATA
+        DEX
+        BNE loop
+    .endscope
+
+
     LDA #0
     STA day_state
     STA day_time
